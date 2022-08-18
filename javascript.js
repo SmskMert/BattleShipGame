@@ -56,7 +56,8 @@ var model = {
         return true;
 
     },
-    gnerateShipLocations: function () {
+    generateShipLocations: function () {
+        let newShipLocations = [];
         let locations;
         for (let i = 0; i < this.numShips; i++) {
             do {
@@ -73,9 +74,9 @@ var model = {
         let col;
         if (direction === 1) {
             row = Math.floor(Math.random() * this.boardSize);
-            col = Math.floor(Math.random() * (this.boardSize - 2));
+            col = Math.floor(Math.random() * (this.boardSize - (this.shipLength-1)));
         } else {
-            row = Math.floor(Math.random() * (this.boardSize - 2));
+            row = Math.floor(Math.random() * (this.boardSize - (this.shipLength-1)));
             col = Math.floor(Math.random() * this.boardSize);
         }
         let newShipLocations = [];
@@ -85,8 +86,8 @@ var model = {
             } else {
                 newShipLocations.push((row + i) + "" + col);
             }
-            return newShipLocations;
         }
+        return newShipLocations;
     },
 
     collision: function (locations) {
@@ -154,7 +155,7 @@ function init() {
     var guessInput = document.getElementById("guessInput");
     guessInput.onkeypress = handleKeyPress;
 
-    model.gnerateShipLocations();
+    model.generateShipLocations();
 }
 
 function handleKeyPress(e) {
@@ -173,3 +174,4 @@ function handleFireButton() {
 }
 
 window.onload = init;
+// console.log(model.ships);

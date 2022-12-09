@@ -34,16 +34,16 @@ var model = {
             if (index >= 0) {
                 ship.hits[index] = "hit";
                 view.displayHit(guess);
-                view.displayMessage("Karadenizdeki Gemimi Vurdun!");
+                view.displayMessage("Aghh You hit my ship!");
                 if (this.isSunk(ship)) {
-                    view.displayMessage("Ahh Karadenizde gemim battı!!");
+                    view.displayMessage("Ahh You sunk my ship!!");
                     this.shipSunk++;
                 }
                 return true;
             }
         }
         view.displayMiss(guess);
-        view.displayMessage("Vuramadin kii!!");
+        view.displayMessage("No hit!!");
         return false;
     },
 
@@ -110,7 +110,7 @@ var controller = {
             this.guesses++;
             var hit = model.fire(location);
             if (hit && model.shipSunk === model.numShips) {
-                view.displayMessage(this.guesses + " Tahminde Bütün gemilerimi batırdın.Karadenizde gemim kalmadı loo")
+                view.displayMessage(this.guesses + " guesses took you to sunk my all ships")
             };
         };
     }
@@ -118,7 +118,7 @@ var controller = {
 function parseGuess(guess) {
     var alphabet = ["A", "B", "C", "D", "E", "F", "G"];
     if (guess === null || guess.length !== 2) {
-        alert("Gecersiz giris yaptın, lütfen 2 haneli 1 harf 1 rakamdan oluşan bir tahmin girin !!")
+        alert("Invalid input, Please provide a 2 character input that one is a letter and the other is number !!")
     }
     else {
         var firstChar = guess.charAt(0);
@@ -126,10 +126,10 @@ function parseGuess(guess) {
         var column = guess.charAt(1);
 
         if (isNaN(row) || isNaN(column)) {
-            alert("Dostum geçersiz giriş yaptın.!!");
+            alert("Invalid input!!");
         } else if (row < 0 || row >= model.boardSize ||
             column < 0 || column >= model.boardSize) {
-            alert("Girdiğin koordinat karadenizin dışında ahbap !!")
+            alert("Your guess is outside of the board. Please try again !!")
         } else {
             return row + column;
         }
